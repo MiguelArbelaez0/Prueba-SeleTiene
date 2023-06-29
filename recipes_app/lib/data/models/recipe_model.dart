@@ -38,7 +38,6 @@ class RecipeModel extends Recipe {
       required super.weightWatcherSmartPoints,
       required super.dishTypes,
       required super.summary});
-
   factory RecipeModel.fromJson(String str) =>
       RecipeModel.fromMap(json.decode(str));
 
