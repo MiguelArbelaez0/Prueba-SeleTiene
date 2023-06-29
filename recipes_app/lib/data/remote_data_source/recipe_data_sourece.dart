@@ -8,16 +8,16 @@ import '../services/api_service.dart';
 class RecipeDataSource {
   RecipeDataSource();
 
-  Future<List<RecipeModel>> onGetRecipes() async {
+  Future<RecipeModel> getRecipeInformation(int recipeId) async {
     final Uri url = Uri.parse(
-        '${ApiService.baseUrl}/recipes/random?apiKey=${ApiService.apiKey}&number=10');
+        'https://api.spoonacular.com/recipes/$recipeId/information?apiKey=${ApiService.apiKey}');
     final http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
-      var responseJson = json.decode(response.body) as List;
-      return responseJson.map((data) => RecipeModel.fromJson(data)).toList();
+      var jsonResponse = json.decode(response.body);
+      return RecipeModel.fromMap(jsonResponse);
     } else {
-      return <RecipeModel>[];
+      throw Exception('Failed to fetch recipe');
     }
   }
 }

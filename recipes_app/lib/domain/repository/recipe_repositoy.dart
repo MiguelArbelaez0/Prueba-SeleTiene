@@ -1,5 +1,5 @@
-import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
+import '../entitis/recipe_entiti.dart';
 
 abstract class RecipeRepository {
-  Future<List<Recipe>> onGetRecipes();
+  Future<Recipe> getRecipeInformation(int recipeId);
 }
