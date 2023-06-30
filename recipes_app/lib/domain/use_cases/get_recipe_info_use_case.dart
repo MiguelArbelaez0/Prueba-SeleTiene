@@ -9,7 +9,7 @@ class GetRecipeInfoUseCase {
   GetRecipeInfoUseCase({RecipeRepository? recipeRepository})
       : _recipeRepository = recipeRepository ?? RecipeInfoRepositoryImpl();
 
-  Future<Recipe> invokeGetProductInformation(int recipeId) async {
-    return await _recipeRepository.getRecipeInformation(recipeId);
+  Future<Recipe> invokeGetProductInformation() async {
+    return await _recipeRepository.getRecipeInformation();
   }
 }

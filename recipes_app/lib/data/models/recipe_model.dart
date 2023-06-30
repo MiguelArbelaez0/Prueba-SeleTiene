@@ -2,48 +2,89 @@ import 'dart:convert';
 
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
-class RecipeModel extends Recipe {
-  RecipeModel(
-      {required super.id,
-      required super.title,
-      required super.image,
-      required super.imageType,
-      required super.servings,
-      required super.readyInMinutes,
-      required super.license,
-      required super.sourceName,
-      required super.sourceUrl,
-      required super.spoonacularSourceUrl,
-      required super.healthScore,
-      required super.spoonacularScore,
-      required super.pricePerServing,
-      required super.analyzedInstructions,
-      required super.cheap,
-      required super.creditsText,
-      required super.cuisines,
-      required super.dairyFree,
-      required super.diets,
-      required super.gaps,
-      required super.glutenFree,
-      required super.instructions,
-      required super.ketogenic,
-      required super.lowFodmap,
-      required super.occasions,
-      required super.sustainable,
-      required super.vegan,
-      required super.vegetarian,
-      required super.veryHealthy,
-      required super.veryPopular,
-      required super.whole30,
-      required super.weightWatcherSmartPoints,
-      required super.dishTypes,
-      required super.summary});
-  factory RecipeModel.fromJson(String str) =>
-      RecipeModel.fromMap(json.decode(str));
+class ReciperData {
+  int id;
+  String title;
+  String image;
+  String imageType;
+  int servings;
+  int readyInMinutes;
+  String license;
+  String sourceName;
+  String sourceUrl;
+  String spoonacularSourceUrl;
+  int healthScore;
+  int spoonacularScore;
+  double pricePerServing;
+  List<dynamic> analyzedInstructions;
+  bool cheap;
+  String creditsText;
+  List<dynamic> cuisines;
+  bool dairyFree;
+  List<dynamic> diets;
+  String gaps;
+  bool glutenFree;
+  String instructions;
+  bool ketogenic;
+  bool lowFodmap;
+  List<dynamic> occasions;
+  bool sustainable;
+  bool vegan;
+  bool vegetarian;
+  bool veryHealthy;
+  bool veryPopular;
+  bool whole30;
+  int weightWatcherSmartPoints;
+  List<String> dishTypes;
+  List<ExtendedIngredient> extendedIngredients;
+  String summary;
+  WinePairing winePairing;
+
+  ReciperData({
+    required this.id,
+    required this.title,
+    required this.image,
+    required this.imageType,
+    required this.servings,
+    required this.readyInMinutes,
+    required this.license,
+    required this.sourceName,
+    required this.sourceUrl,
+    required this.spoonacularSourceUrl,
+    required this.healthScore,
+    required this.spoonacularScore,
+    required this.pricePerServing,
+    required this.analyzedInstructions,
+    required this.cheap,
+    required this.creditsText,
+    required this.cuisines,
+    required this.dairyFree,
+    required this.diets,
+    required this.gaps,
+    required this.glutenFree,
+    required this.instructions,
+    required this.ketogenic,
+    required this.lowFodmap,
+    required this.occasions,
+    required this.sustainable,
+    required this.vegan,
+    required this.vegetarian,
+    required this.veryHealthy,
+    required this.veryPopular,
+    required this.whole30,
+    required this.weightWatcherSmartPoints,
+    required this.dishTypes,
+    required this.extendedIngredients,
+    required this.summary,
+    required this.winePairing,
+  });
+
+  factory ReciperData.fromJson(String str) =>
+      ReciperData.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory RecipeModel.fromMap(Map<String, dynamic> json) => RecipeModel(
+  factory ReciperData.fromMap(Map<String, dynamic> json) => ReciperData(
         id: json["id"],
         title: json["title"],
         image: json["image"],
@@ -78,7 +119,11 @@ class RecipeModel extends Recipe {
         whole30: json["whole30"],
         weightWatcherSmartPoints: json["weightWatcherSmartPoints"],
         dishTypes: List<String>.from(json["dishTypes"].map((x) => x)),
+        extendedIngredients: List<ExtendedIngredient>.from(
+            json["extendedIngredients"]
+                .map((x) => ExtendedIngredient.fromMap(x))),
         summary: json["summary"],
+        winePairing: WinePairing.fromMap(json["winePairing"]),
       );
 
   Map<String, dynamic> toMap() => {
@@ -116,6 +161,224 @@ class RecipeModel extends Recipe {
         "whole30": whole30,
         "weightWatcherSmartPoints": weightWatcherSmartPoints,
         "dishTypes": List<dynamic>.from(dishTypes.map((x) => x)),
+        "extendedIngredients":
+            List<dynamic>.from(extendedIngredients.map((x) => x.toMap())),
         "summary": summary,
+        "winePairing": winePairing.toMap(),
       };
+}
+
+class ExtendedIngredient {
+  String aisle;
+  double amount;
+  Consitency consitency;
+  int id;
+  String image;
+  Measures measures;
+  List<String> meta;
+  String name;
+  String original;
+  String originalName;
+  String unit;
+
+  ExtendedIngredient({
+    required this.aisle,
+    required this.amount,
+    required this.consitency,
+    required this.id,
+    required this.image,
+    required this.measures,
+    required this.meta,
+    required this.name,
+    required this.original,
+    required this.originalName,
+    required this.unit,
+  });
+
+  factory ExtendedIngredient.fromJson(String str) =>
+      ExtendedIngredient.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ExtendedIngredient.fromMap(Map<String, dynamic> json) =>
+      ExtendedIngredient(
+        aisle: json["aisle"],
+        amount: json["amount"]?.toDouble(),
+        consitency: consitencyValues.map[json["consitency"]]!,
+        id: json["id"],
+        image: json["image"],
+        measures: Measures.fromMap(json["measures"]),
+        meta: List<String>.from(json["meta"].map((x) => x)),
+        name: json["name"],
+        original: json["original"],
+        originalName: json["originalName"],
+        unit: json["unit"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "aisle": aisle,
+        "amount": amount,
+        "consitency": consitencyValues.reverse[consitency],
+        "id": id,
+        "image": image,
+        "measures": measures.toMap(),
+        "meta": List<dynamic>.from(meta.map((x) => x)),
+        "name": name,
+        "original": original,
+        "originalName": originalName,
+        "unit": unit,
+      };
+}
+
+enum Consitency { SOLID, LIQUID }
+
+final consitencyValues =
+    EnumValues({"liquid": Consitency.LIQUID, "solid": Consitency.SOLID});
+
+class Measures {
+  Metric metric;
+  Metric us;
+
+  Measures({
+    required this.metric,
+    required this.us,
+  });
+
+  factory Measures.fromJson(String str) => Measures.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Measures.fromMap(Map<String, dynamic> json) => Measures(
+        metric: Metric.fromMap(json["metric"]),
+        us: Metric.fromMap(json["us"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "metric": metric.toMap(),
+        "us": us.toMap(),
+      };
+}
+
+class Metric {
+  double amount;
+  String unitLong;
+  String unitShort;
+
+  Metric({
+    required this.amount,
+    required this.unitLong,
+    required this.unitShort,
+  });
+
+  factory Metric.fromJson(String str) => Metric.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Metric.fromMap(Map<String, dynamic> json) => Metric(
+        amount: json["amount"]?.toDouble(),
+        unitLong: json["unitLong"],
+        unitShort: json["unitShort"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "amount": amount,
+        "unitLong": unitLong,
+        "unitShort": unitShort,
+      };
+}
+
+class WinePairing {
+  List<String> pairedWines;
+  String pairingText;
+  List<ProductMatch> productMatches;
+
+  WinePairing({
+    required this.pairedWines,
+    required this.pairingText,
+    required this.productMatches,
+  });
+
+  factory WinePairing.fromJson(String str) =>
+      WinePairing.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory WinePairing.fromMap(Map<String, dynamic> json) => WinePairing(
+        pairedWines: List<String>.from(json["pairedWines"].map((x) => x)),
+        pairingText: json["pairingText"],
+        productMatches: List<ProductMatch>.from(
+            json["productMatches"].map((x) => ProductMatch.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "pairedWines": List<dynamic>.from(pairedWines.map((x) => x)),
+        "pairingText": pairingText,
+        "productMatches":
+            List<dynamic>.from(productMatches.map((x) => x.toMap())),
+      };
+}
+
+class ProductMatch {
+  int id;
+  String title;
+  String description;
+  String price;
+  String imageUrl;
+  double averageRating;
+  int ratingCount;
+  double score;
+  String link;
+
+  ProductMatch({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.imageUrl,
+    required this.averageRating,
+    required this.ratingCount,
+    required this.score,
+    required this.link,
+  });
+
+  factory ProductMatch.fromJson(String str) =>
+      ProductMatch.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductMatch.fromMap(Map<String, dynamic> json) => ProductMatch(
+        id: json["id"],
+        title: json["title"],
+        description: json["description"],
+        price: json["price"],
+        imageUrl: json["imageUrl"],
+        averageRating: json["averageRating"]?.toDouble(),
+        ratingCount: json["ratingCount"],
+        score: json["score"]?.toDouble(),
+        link: json["link"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "title": title,
+        "description": description,
+        "price": price,
+        "imageUrl": imageUrl,
+        "averageRating": averageRating,
+        "ratingCount": ratingCount,
+        "score": score,
+        "link": link,
+      };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

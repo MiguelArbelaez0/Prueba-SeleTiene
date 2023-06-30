@@ -7,8 +7,10 @@ class RecipeInfoRepositoryImpl extends RecipeRepository {
 
   RecipeInfoRepositoryImpl({RecipeDataSource? recipeDataSource})
       : _recipeDataSource = recipeDataSource ?? RecipeDataSource();
+
   @override
-  Future<Recipe> getRecipeInformation(int recipeId) async {
-    return await _recipeDataSource.getRecipeInformation(recipeId);
+  Future<Recipe> getRecipeInformation() {
+    // TODO: implement getRecipeInformation
+    throw UnimplementedError();
   }
 }
