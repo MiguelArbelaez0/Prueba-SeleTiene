@@ -1,5 +1,5 @@
-import 'consistency.dart';
-import 'measures.dart';
+import 'consistency._entiti.dart';
+import 'measures_entiti.dart';
 
 class ExtendedIngredient {
   String aisle;

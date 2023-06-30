@@ -1,6 +1,19 @@
 import 'dart:convert';
 
-class WinePairingModel {
+import 'package:recipes_app/domain/entitis/wine_pairing.dart';
+
+import '../../domain/entitis/prodcut.match.dart';
+
+class WinePairingModel extends WinePairing {
+  WinePairingModel({
+    required List<String> pairedWines,
+    required String pairingText,
+    required List<ProductMatch> productMatches,
+  }) : super(
+          pairedWines: pairedWines,
+          pairingText: pairingText,
+          productMatches: productMatches,
+        );
   factory WinePairingModel.fromJson(String str) =>
       WinePairingModel.fromMap(json.decode(str));
 

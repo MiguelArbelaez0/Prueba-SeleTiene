@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
+import 'package:recipes_app/domain/entitis/wine_pairing_entiti.dart';
+
+import '../../domain/entitis/extended_ingredient_entiti.dart';
+
 class RecipeModel {
   factory RecipeModel.fromJson(String str) =>
       RecipeModel.fromMap(json.decode(str));

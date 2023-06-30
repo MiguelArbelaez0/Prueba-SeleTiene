@@ -1,4 +1,4 @@
-import '../../data/models/recipe_model.dart';
+import 'enum_values.dart';
 
 enum Consitency { SOLID, LIQUID }
 

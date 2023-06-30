@@ -1,3 +1,5 @@
+import 'extended_ingredient.dart';
+
 class Recipe {
   bool? vegetarian;
   bool? vegan;
@@ -17,7 +19,7 @@ class Recipe {
   String? license;
   String? sourceName;
   double? pricePerServing;
-  // List<ExtendedIngredient>? extendedIngredients;
+  List<ExtendedIngredient>? extendedIngredients;
   int? id;
   String? title;
   int? readyInMinutes;
@@ -54,7 +56,7 @@ class Recipe {
     this.license,
     this.sourceName,
     this.pricePerServing,
-    // this.extendedIngredients,
+    this.extendedIngredients,
     this.id,
     this.title,
     this.readyInMinutes,
