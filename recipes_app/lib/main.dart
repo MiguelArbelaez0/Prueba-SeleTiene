@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'data/models/recipe_model.dart';
-import 'data/remote_data_source/recipe_data_sourece.dart';
-import 'domain/entitis/recipe_entiti.dart';
-
 void main() {
   runApp(const MyApp());
 }
