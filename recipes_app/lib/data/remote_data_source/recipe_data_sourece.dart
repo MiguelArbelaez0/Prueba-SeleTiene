@@ -5,15 +5,12 @@ import 'package:recipes_app/data/services/api_service.dart';
 
 import '../models/recipe_model.dart';
 
-Future<RecipeModel> fetchRandomRecipe() async {
-  final response = await http.get(Uri.parse(
-      'https://api.spoonacular.com/recipes/random?apiKey=${ApiService.apiKey}'));
+Future<RecipeModel> getRandomRecipes() async {
+  final Uri url = Uri.parse(
+      "${ApiService.baseUrl}/recipes/random?number=10&apiKey=${ApiService.apiKey}");
+
+  final http.Response response = await http.get(url);
 
   if (response.statusCode == 200) {
-    final jsonData = json.decode(response.body);
-
-    return RecipeModel.fromJson(jsonData);
-  } else {
-    throw Exception('Failed to fetch random recipe');
-  }
+  } else {}
 }
