@@ -1,3 +1,5 @@
+import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
+
 abstract class RandomRecipesRepository {
-  onGetRandomRecipes();
+  Future<List<Recipe>> onGetRandomRecipes();
 }
