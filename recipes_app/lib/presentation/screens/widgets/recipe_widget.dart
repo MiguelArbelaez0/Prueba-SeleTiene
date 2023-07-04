@@ -24,18 +24,21 @@ class RecipeWidget extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () => tap.call(),
-                child: Image.network(
-                  recipe.image!,
-                ),
+                child: recipe.image != null
+                    ? Image.network(recipe.image!)
+                    : const Placeholder(),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            Text(
-              recipe.title!,
-              textAlign: TextAlign.start,
-              maxLines: 2,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                recipe.title!,
+                textAlign: TextAlign.start,
+                maxLines: 2,
+              ),
             ),
           ],
         ),

@@ -8,7 +8,7 @@ class RandomRecipeDataSource {
   RandomRecipeDataSource();
   Future<List<RecipeModel>> getRandomRecipes() async {
     final Uri url = Uri.parse(
-        'https://api.spoonacular.com/recipes/random?apiKey=eefb513a794042d7adbad45894a2f239&number=6');
+        'https://api.spoonacular.com/recipes/random?apiKey=eefb513a794042d7adbad45894a2f239&number=100');
 
     final http.Response response = await http.get(url);
 
