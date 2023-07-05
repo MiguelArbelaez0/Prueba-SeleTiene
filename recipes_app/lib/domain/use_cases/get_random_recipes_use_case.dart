@@ -1,5 +1,5 @@
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
-import 'package:recipes_app/domain/repository/random_recipes.dart';
+import 'package:recipes_app/domain/repository/get_random_recipes.dart';
 
 import '../../data/repository_impl/random_recipes_repository_impl.dart';
 

@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/presentation/screens/home_screen.dart';
-import 'package:recipes_app/presentation/screens/nav_screen.dart';
-
-import 'data/models/recipe_model.dart';
-import 'data/remote_data_source/recipe_data_sourece.dart';
 import 'presentation/screens/routes/routes_app.dart';
 
 void main() {
