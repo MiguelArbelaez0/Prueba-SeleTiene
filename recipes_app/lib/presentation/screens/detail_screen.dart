@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
 class DetailScreen extends StatelessWidget {
-  final Recipe recipe;
+  final Recipe? recipe;
   const DetailScreen({
     Key? key,
     required this.recipe,
@@ -11,8 +11,11 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(children: [Text("")]),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(recipe!.id.toString()),
+      ),
+      body: Column(children: []),
     );
   }
 }

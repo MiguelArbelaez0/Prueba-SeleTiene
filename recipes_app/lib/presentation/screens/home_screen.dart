@@ -48,10 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return RecipeWidget(
                       recipe: recipes[index],
                       tap: () {
-                        Navigator.pushNamed(
-                          context,
-                          "/detail_screen",
-                        );
+                        Navigator.pushNamed(context, "/detail_screen",
+                            arguments: recipes[index]);
                       },
                     );
                   },
