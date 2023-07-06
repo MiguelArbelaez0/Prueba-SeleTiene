@@ -29,7 +29,7 @@ class RecipeDataInformationSource {
 
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
-      print(responseJson); // Imprimir la respuesta obtenida
+      print(responseJson);
     } else {
       print('Error en la solicitud');
     }
