@@ -347,7 +347,7 @@ class ProductMatch {
         price: json["price"],
         imageUrl: json["imageUrl"],
         averageRating: json["averageRating"]?.toDouble(),
-        ratingCount: json["ratingCount"],
+        ratingCount: json["ratingCount"].toInt(),
         score: json["score"]?.toDouble(),
         link: json["link"],
       );

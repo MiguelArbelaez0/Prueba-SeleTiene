@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entitis/recipe_entiti.dart';
-import '../view_model/random_recipes_view_model.dart';
+
+import '../view_model/recipes_view_model.dart';
 import 'widgets/recipe_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,12 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final RandomRecipesViewModel randomRecipesViewModel;
+  late final RecipesViewModel recipesViewModel;
 
   @override
   void initState() {
-    randomRecipesViewModel = RandomRecipesViewModel();
-    randomRecipesViewModel.invokeRecipes();
+    recipesViewModel = RecipesViewModel();
+    recipesViewModel.invokeRecipes();
     super.initState();
   }
 
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: StreamBuilder<List<Recipe>>(
-              stream: randomRecipesViewModel.recipesStream,
+              stream: recipesViewModel.recipesStream,
               initialData: const [],
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 final List<Recipe> recipes = snapshot.data;
@@ -48,8 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     return RecipeWidget(
                       recipe: recipes[index],
                       tap: () {
-                        Navigator.pushNamed(context, "/detail_screen",
-                            arguments: recipes[index]);
+                        Navigator.pushNamed(
+                          context,
+                          "/detail_screen",
+                          arguments: recipes[index].id,
+                        );
                       },
                     );
                   },

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'data/remote_data_source/recipe_info_data_source.dart';
 import 'presentation/screens/routes/routes_app.dart';
 
 void main() {
-  // final recipeDataSource = RecipeDataInformationSource();
-  // const recipeId = 641443;
-
-  // recipeDataSource.getRecipeInformation(recipeId);
   runApp(const MyApp());
 }
 
@@ -31,6 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: Routes.generateRoute,
+      // home: RecipesScreen(recipeId: 1),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:recipes_app/data/repository_impl/recipe_info_repository_impl.dart';
+import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 import 'package:recipes_app/domain/repository/get_recipes_info.dart';
 
 class GetRecipesInfoUseCase {
@@ -8,7 +9,8 @@ class GetRecipesInfoUseCase {
       : _recipesInfoRepository =
             recipesInfoRepository ?? RecipeInfoRepositoryImpl();
 
-  Future<void> invokeRecipesInfo(int recipeId) async {
-    return _recipesInfoRepository.onGetRecipeInfo(recipeId);
+  Future<Recipe> invokeRecipesInfo(int recipeId) async {
+    Recipe recipe = await _recipesInfoRepository.onGetRecipeInfo(recipeId);
+    return recipe;
   }
 }

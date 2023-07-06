@@ -15,9 +15,20 @@ class Routes {
       case "/home_screen":
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
+      // case "/detail_screen":
+      //   return MaterialPageRoute(
+      //     builder: (_) {
+      //       return DetailScreen(
+      //         recipe: settings.arguments as Recipe,
+      //       );
+      //     },
+      //   );
       case "/detail_screen":
+        // Obtener el ID de la receta de los argumentos
+        final int recipeId = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => DetailScreen(recipe: settings.arguments as Recipe));
+          builder: (context) => DetailScreen(recipeId: recipeId),
+        );
     }
 
     return MaterialPageRoute(builder: (_) => const HomeScreen());

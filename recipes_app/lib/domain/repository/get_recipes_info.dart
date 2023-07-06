@@ -1,3 +1,5 @@
+import '../entitis/recipe_entiti.dart';
+
 abstract class RecipesInfoRepository {
-  void onGetRecipeInfo(int recipeId);
+  Future<Recipe> onGetRecipeInfo(int recipeId);
 }
