@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
-import 'package:recipes_app/presentation/interfaces/home_interfaces.dart';
 
 import '../../domain/use_cases/get_random_recipes_use_case.dart';
 import '../../domain/use_cases/get_recipes_info_use_cases.dart';
@@ -12,10 +11,7 @@ class RecipesViewModel {
   final GetRecipesInfoUseCase _getRecipesInfoUseCase;
   final SearchRecipesUsesCases _searchRecipesUsesCases;
 
-  final HomeInterface _homeInterface;
-
-  RecipesViewModel(
-    this._homeInterface, {
+  RecipesViewModel({
     GetRandomRecipeUseCase? getRandomRecipeUseCase,
     GetRecipesInfoUseCase? getRecipesInfoUseCase,
     SearchRecipesUsesCases? searchRecipesUseCases,
@@ -39,10 +35,8 @@ class RecipesViewModel {
   Stream<Recipe> get recipeStream => _recipeController.stream;
 
   invokeRecipes() async {
-    _homeInterface.showLoading();
     recipes = await _getRandomRecipeUseCase.invokeRandomRecipes();
     _recipesController.add(recipes);
-    _homeInterface.hideLoading();
   }
 
   invokeRecipesInfo(int recipeId) async {

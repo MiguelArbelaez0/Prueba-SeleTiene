@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
-import '../interfaces/home_interfaces.dart';
 import '../view_model/recipes_view_model.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -20,11 +19,11 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   late final RecipesViewModel recipesViewModel;
-  late final HomeInterface _homeInterface;
+
   @override
   void initState() {
     super.initState();
-    recipesViewModel = RecipesViewModel(_homeInterface);
+    recipesViewModel = RecipesViewModel();
     recipesViewModel.invokeRecipesInfo(widget.recipeId);
   }
 
@@ -32,6 +31,8 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange,
+        centerTitle: true,
         title: const Text('Detalles'),
       ),
       body: StreamBuilder<Recipe>(
@@ -40,60 +41,63 @@ class _DetailScreenState extends State<DetailScreen> {
           final recipe = snapshot.data;
           final instructions = recipe?.instructions ?? '';
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Vegano: ${recipe?.vegan ?? false}',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Vegetariano: ${recipe?.vegetarian ?? false}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Muy saludable: ${recipe?.veryHealthy ?? false}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Instrucciones:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Vegano: ${recipe?.vegan ?? false}',
+                    style: const TextStyle(
+                      fontSize: 18,
                     ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        instructions,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Vegetariano: ${recipe?.vegetarian ?? false}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Muy saludable: ${recipe?.veryHealthy ?? false}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Instrucciones:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            instructions,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
