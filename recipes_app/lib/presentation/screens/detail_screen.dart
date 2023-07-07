@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
@@ -7,9 +9,9 @@ class DetailScreen extends StatefulWidget {
   final int recipeId;
 
   const DetailScreen({
-    super.key,
+    Key? key,
     required this.recipeId,
-  });
+  }) : super(key: key);
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -17,8 +19,6 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   late final RecipesViewModel recipesViewModel;
-
-  Recipe? recipe;
 
   @override
   void initState() {
@@ -31,25 +31,69 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalles'),
+        title: const Text('Detalles'),
       ),
-      body: StreamBuilder<Recipe?>(
+      body: StreamBuilder<Recipe>(
         stream: recipesViewModel.recipeStream,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            // Aquí puedes mostrar los detalles de la receta en función de los datos recibidos.
-            return Center(
-              child: Text('Detalles de la receta: ${snapshot.data}'),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error al cargar los detalles de la receta.'),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+          final recipe = snapshot.data;
+          final instructions = recipe?.instructions ?? '';
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Vegano: ${recipe?.vegan ?? false}',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Vegetariano: ${recipe?.vegetarian ?? false}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Muy saludable: ${recipe?.veryHealthy ?? false}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Instrucciones:',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        instructions,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
         },
       ),
     );
