@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes_app/presentation/interfaces/home_interfaces.dart';
 
 import '../../domain/entitis/recipe_entiti.dart';
 
@@ -12,13 +13,16 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> implements HomeInterface {
   late final RecipesViewModel recipesViewModel;
 
   @override
   void initState() {
-    recipesViewModel = RecipesViewModel();
-    recipesViewModel.invokeRecipes();
+    recipesViewModel = RecipesViewModel(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      recipesViewModel.invokeRecipes();
+    });
+
     super.initState();
   }
 
@@ -63,6 +67,30 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  hideLoading() {
+    Navigator.of(context).pop();
+
+    setState(() {});
+  }
+
+  @override
+  showLoading() {
+    AlertDialog loadingDialog = const AlertDialog(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      content: CircularProgressIndicator(),
+    );
+
+    showDialog(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return loadingDialog;
+      },
     );
   }
 }

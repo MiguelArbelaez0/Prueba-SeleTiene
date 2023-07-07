@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
+import '../interfaces/home_interfaces.dart';
 import '../view_model/recipes_view_model.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -19,11 +20,11 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   late final RecipesViewModel recipesViewModel;
-
+  late final HomeInterface _homeInterface;
   @override
   void initState() {
     super.initState();
-    recipesViewModel = RecipesViewModel();
+    recipesViewModel = RecipesViewModel(_homeInterface);
     recipesViewModel.invokeRecipesInfo(widget.recipeId);
   }
 
