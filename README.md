@@ -11,3 +11,4 @@ las cuales son las que tiene las informacion lista para la ui .
 en la primera pantalla trae 100 recetas 
 en la segunda screen se muestra la informacion de como hacer la receta paso a paso,
 
+version 3.7.10
