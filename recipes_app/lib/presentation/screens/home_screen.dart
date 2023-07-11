@@ -29,6 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 20),
+            child: const Icon(
+              Icons.search_outlined,
+              color: Colors.orange,
+              size: 30,
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -38,12 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
               initialData: const [],
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 final List<Recipe> recipes = snapshot.data;
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
+                return ListView.builder(
                   padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
                   itemCount: recipes.length,
                   itemBuilder: (BuildContext context, int index) {
