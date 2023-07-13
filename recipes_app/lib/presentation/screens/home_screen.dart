@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entitis/recipe_entiti.dart';
 
 import '../view_model/recipes_view_model.dart';
+import '../view_model/search_recipes_view_model.dart';
 import 'widgets/recipe_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,10 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Container(
             margin: EdgeInsets.only(right: 20),
-            child: const Icon(
-              Icons.search_outlined,
+            child: IconButton(
               color: Colors.orange,
-              size: 30,
+              onPressed: () {
+                showSearch(
+                    context: context, delegate: SearchRecipesViewModel());
+              },
+              icon: Icon(
+                Icons.search_outlined,
+                size: 30,
+              ),
             ),
           )
         ],
