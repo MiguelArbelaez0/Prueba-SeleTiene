@@ -1,9 +1,9 @@
-import '../../data/models/search_model.dart';
+import '../../data/models/recipe_model.dart';
 
 class SearchRecipe {
   int? offset;
   int? number;
-  List<Result>? results;
+  List<RecipeModel>? results;
   int? totalResults;
   SearchRecipe({
     this.offset,
