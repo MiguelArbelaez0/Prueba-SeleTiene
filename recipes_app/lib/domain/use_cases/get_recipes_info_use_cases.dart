@@ -10,7 +10,6 @@ class GetRecipesInfoUseCase {
             recipesInfoRepository ?? RecipeInfoRepositoryImpl();
 
   Future<Recipe> invokeRecipesInfo(int recipeId) async {
-    Recipe recipe = await _recipesInfoRepository.onGetRecipeInfo(recipeId);
-    return recipe;
+    return await _recipesInfoRepository.onGetRecipeInfo(recipeId);
   }
 }

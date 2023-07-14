@@ -13,7 +13,7 @@ class SearchRecipesViewModel extends SearchDelegate {
     return [
       IconButton(
         onPressed: () {
-          _searchRecipesUsesCases.invokeResultsRecipes(query);
+          query = "";
         },
         icon: const Icon(Icons.clear),
       )
