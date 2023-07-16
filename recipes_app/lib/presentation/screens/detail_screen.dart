@@ -78,6 +78,39 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ),
                 ),
+                // SizedBox(
+                //   height: 200,
+                //   child: PageView(
+                //     scrollDirection: Axis.horizontal,
+                //     children: [
+                //       Container(
+                //         color: Colors.red,
+                //         child: const Center(
+                //           child: Text('Ingredients',
+                //               style:
+                //                   TextStyle(fontSize: 24, color: Colors.white)),
+                //         ),
+                //       ),
+                //       Container(
+                //         color: Colors.green,
+                //         child: const Center(
+                //           child: Text('Preparation',
+                //               style:
+                //                   TextStyle(fontSize: 24, color: Colors.white)),
+                //         ),
+                //       ),
+                //       Container(
+                //         color: Colors.blue,
+                //         child: const Center(
+                //           child: Text(
+                //             'Nutrition',
+                //             style: TextStyle(fontSize: 24, color: Colors.white),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // )
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
