@@ -1,9 +1,9 @@
-import '../../data/models/recipe_model.dart';
+import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
 class SearchRecipe {
   int? offset;
   int? number;
-  List<RecipeModel>? results;
+  List<Recipe>? results;
   int? totalResults;
   SearchRecipe({
     this.offset,

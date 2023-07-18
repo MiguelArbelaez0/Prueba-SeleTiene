@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entitis/recipe_entiti.dart';
 
 import '../view_model/recipes_view_model.dart';
-import '../view_model/search_recipes_view_model.dart';
+import 'widgets/search_widget.dart';
 import 'widgets/recipe_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.orange,
               onPressed: () {
                 showSearch(
-                    context: context, delegate: SearchRecipesViewModel());
+                  context: context,
+                  delegate: SearchWidget(recipesViewModel),
+                );
               },
               icon: Icon(
                 Icons.search_outlined,
