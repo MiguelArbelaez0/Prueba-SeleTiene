@@ -38,17 +38,21 @@ class SearchWidget extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     _recipesViewModel.searchRecipes(query);
     return StreamBuilder<List<Recipe>>(
-        initialData: [],
-        stream: _recipesViewModel.resultStream,
-        builder: (context, AsyncSnapshot<List<Recipe>> snapshot) {
-          List<Recipe> recipe = snapshot.data ?? [];
-          return ListView.builder(
-            itemCount: recipe.length,
-            itemBuilder: (BuildContext context, int index) {
-              return RecipeWidget(recipe: recipe[index], tap: () {});
-            },
-          );
-        });
+      initialData: [],
+      stream: _recipesViewModel.resultStream,
+      builder: (context, AsyncSnapshot<List<Recipe>> snapshot) {
+        List<Recipe> recipes = snapshot.data ?? [];
+        List<Recipe> recipe = recipes
+            .where((e) => e.title!.toLowerCase().contains(query))
+            .toList();
+        return ListView.builder(
+          itemCount: recipe.length,
+          itemBuilder: (BuildContext context, int index) {
+            return RecipeWidget(recipe: recipe[index], tap: () {});
+          },
+        );
+      },
+    );
   }
 
   @override
