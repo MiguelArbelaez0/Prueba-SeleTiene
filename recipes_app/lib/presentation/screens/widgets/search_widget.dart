@@ -42,6 +42,7 @@ class SearchWidget extends SearchDelegate {
       stream: _recipesViewModel.resultStream,
       builder: (context, AsyncSnapshot<List<Recipe>> snapshot) {
         List<Recipe> recipes = snapshot.data ?? [];
+
         List<Recipe> recipe = recipes
             .where((e) => e.title!.toLowerCase().contains(query))
             .toList();
