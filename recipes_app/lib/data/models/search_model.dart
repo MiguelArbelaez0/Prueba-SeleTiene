@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:recipes_app/data/models/recipe_model.dart';
+import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 import 'package:recipes_app/domain/entitis/search_entiti.dart';
 
 SearchModel searchModelFromMap(String str) =>
@@ -11,7 +13,7 @@ class SearchModel extends SearchRecipe {
   SearchModel({
     int? offset,
     int? number,
-    List<Result>? results,
+    List<RecipeModel>? results,
     int? totalResults,
   }) : super(
           offset: offset,
@@ -25,16 +27,15 @@ class SearchModel extends SearchRecipe {
         number: json["number"],
         results: json["results"] == null
             ? []
-            : List<Result>.from(json["results"]!.map((x) => Result.fromMap(x))),
+            : List<RecipeModel>.from(
+                json["results"]!.map((x) => RecipeModel.fromMap(x))),
         totalResults: json["totalResults"],
       );
 
   Map<String, dynamic> toMap() => {
         "offset": offset,
         "number": number,
-        "results": results == null
-            ? []
-            : List<dynamic>.from(results!.map((x) => x.toMap())),
+        "results": results == null ? [] : [],
         "totalResults": totalResults,
       };
 }

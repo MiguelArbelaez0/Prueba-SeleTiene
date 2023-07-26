@@ -10,6 +10,6 @@ class SearchRecipesUsesCases {
             searchRecipeRepository ?? SearchRecipesRepositoryImpl();
 
   Future<SearchRecipe> invokeResultsRecipes(String query) async {
-    return _searchRecipeRepository.onGetResultSearch(query);
+    return await _searchRecipeRepository.onGetResultSearch(query);
   }
 }
