@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/domain/entitis/recipe_entiti.dart';
 
@@ -25,10 +22,20 @@ class _DetailScreenState extends State<DetailScreen> {
   int _currentPageIndex = 0;
 
   final List<String> _titles = [
-    'Ingredients',
     'Preparation',
+    'Ingredients',
     'Nutrition',
   ];
+  String getYesNo(bool? value) {
+    if (value == true) {
+      return 'Sí';
+    } else if (value == false) {
+      return 'No';
+    } else {
+      return '';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +70,8 @@ class _DetailScreenState extends State<DetailScreen> {
           final instructions =
               recipe?.analyzedInstructions?.first['steps'] ?? [];
           final title = recipe?.title ?? "";
+          final extendedIngredients = recipe?.extendedIngredients ?? [];
+
           return Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,150 +94,142 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ),
                 ),
-                Column(
-                  children: [
-                    // Widget para mostrar los títulos en un ListView horizontal
-                    SizedBox(
-                      height: 50,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _titles.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              _pageController.animateToPage(
-                                index,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOut,
+                SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _titles.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          _pageController.animateToPage(
+                            index,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            _titles[index],
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: _currentPageIndex == index
+                                  ? Colors.orange
+                                  : Colors.grey,
+                              fontWeight: _currentPageIndex == index
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentPageIndex = index;
+                      });
+                    },
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            instructions.length,
+                            (index) {
+                              final step = instructions[index]['step'];
+                              return Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Text(
+                                  '${index + 1}. $step',
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
                               );
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                _titles[index],
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: _currentPageIndex == index
-                                      ? Colors.black
-                                      : Colors.grey,
-                                  fontWeight: _currentPageIndex == index
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                          ),
+                        ),
                       ),
-                    ),
-                    // Widget para mostrar el contenido con PageView
-                    SizedBox(
-                      height: 200,
-                      child: PageView(
-                        controller: _pageController,
-                        onPageChanged: (index) {
-                          setState(
-                            () {
-                              _currentPageIndex = index;
-                            },
-                          );
-                        },
-                        children: [
-                          SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Text(
-                                    'Instrucciones:',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Column(
-                                  children: List.generate(
-                                    instructions.length,
-                                    (index) {
-                                      final step = instructions[index]['step'];
-                                      return Padding(
-                                        padding: const EdgeInsets.all(20),
-                                        child: Text(
-                                          '${index + 1}. $step',
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            color: Colors.green,
-                            child: const Center(
-                              child: Text('Contenido de Preparation',
-                                  style: TextStyle(
-                                      fontSize: 24, color: Colors.white)),
-                            ),
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: const Center(
-                              child: Text(
-                                'Contenido de Nutrition',
-                                style: TextStyle(
-                                    fontSize: 24, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ],
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: extendedIngredients.length,
+                          itemBuilder: (context, index) {
+                            final ingredient = extendedIngredients[index];
+                            final measure = ingredient.measures?.metric ??
+                                ingredient.measures?.us;
+                            final amount = measure?.amount?.toString() ??
+                                ingredient.amount?.toString() ??
+                                'Unknown';
+                            final unit =
+                                measure?.unitShort ?? ingredient.unit ?? '';
+
+                            return ListTile(
+                              title: Text(ingredient.name ?? ''),
+                              subtitle: Text('Amount: $amount $unit'),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(40),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Very Healthy: ${getYesNo(recipe?.veryHealthy)}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Añade una separación vertical de 8 puntos
+                              Text(
+                                'Suitable for Vegetarians: ${getYesNo(recipe?.vegetarian)}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Añade una separación vertical de 8 puntos
+                              Text(
+                                'Suitable for Vegans: ${getYesNo(recipe?.vegan)}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Añade una separación vertical de 8 puntos
+                              Text(
+                                'Gluten-free: ${getYesNo(recipe?.glutenFree)}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Añade una separación vertical de 8 puntos
+                              Text(
+                                'Dairy-free: ${getYesNo(recipe?.dairyFree)}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Añade una separación vertical de 8 puntos
+                              Text(
+                                'Low FODMAP: ${getYesNo(recipe?.lowFodmap)}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Añade una separación vertical de 8 puntos
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                // Expanded(
-                //   child: SingleChildScrollView(
-                //     child: Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         const Padding(
-                //           padding: EdgeInsets.all(20),
-                //           child: Text(
-                //             'Instrucciones:',
-                //             style: TextStyle(
-                //               fontSize: 20,
-                //               color: Colors.orange,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           ),
-                //         ),
-                //         const SizedBox(height: 10),
-                //         Column(
-                //           children: List.generate(
-                //             instructions.length,
-                //             (index) {
-                //               final step = instructions[index]['step'];
-                //               return Padding(
-                //                 padding: const EdgeInsets.all(20),
-                //                 child: Text(
-                //                   '${index + 1}. $step',
-                //                   textAlign: TextAlign.start,
-                //                   style: const TextStyle(fontSize: 20),
-                //                 ),
-                //               );
-                //             },
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           );
