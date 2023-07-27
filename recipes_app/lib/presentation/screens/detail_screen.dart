@@ -185,44 +185,32 @@ class _DetailScreenState extends State<DetailScreen> {
                                 'Very Healthy: ${getYesNo(recipe?.veryHealthy)}',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                  height:
-                                      8), // Añade una separación vertical de 8 puntos
+                              const SizedBox(height: 8),
                               Text(
                                 'Suitable for Vegetarians: ${getYesNo(recipe?.vegetarian)}',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                  height:
-                                      8), // Añade una separación vertical de 8 puntos
+                              const SizedBox(height: 8),
                               Text(
                                 'Suitable for Vegans: ${getYesNo(recipe?.vegan)}',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                  height:
-                                      8), // Añade una separación vertical de 8 puntos
+                              const SizedBox(height: 8),
                               Text(
                                 'Gluten-free: ${getYesNo(recipe?.glutenFree)}',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                  height:
-                                      8), // Añade una separación vertical de 8 puntos
+                              const SizedBox(height: 8),
                               Text(
                                 'Dairy-free: ${getYesNo(recipe?.dairyFree)}',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                  height:
-                                      8), // Añade una separación vertical de 8 puntos
+                              const SizedBox(height: 8),
                               Text(
                                 'Low FODMAP: ${getYesNo(recipe?.lowFodmap)}',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                  height:
-                                      8), // Añade una separación vertical de 8 puntos
+                              const SizedBox(height: 8),
                             ],
                           ),
                         ),
